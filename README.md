@@ -1,6 +1,6 @@
 # Udacity-DataAnalysisWithR
 
-Code for Udacity Pyhton course
+Code for Data Analysis with R 
 
 "Análise de Dados com R (Visualmente analisar e sintetizar conjuntos de dados)"
 
