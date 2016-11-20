@@ -1,0 +1,78 @@
+---
+title: "Module 3"
+author: "Mimica"
+date: "11/20/2016"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Lesson 3
+
+
+## Importing and first looking the data
+
+```{r}
+getwd()
+setwd('/Users/mimica/Google Drive/CodeDevelopment/Udacity/data-analysis-with-r--ud651/module3')
+home_dir <- getwd()
+home_dir
+list.files()
+pf <- read.csv("pseudo_facebook.tsv", sep = '\t')
+dim(pf)
+names(pf)
+str(pf)
+head(pf)
+tail(pf)
+summary(pf)
+```
+
+
+## Histogram of User's birthdays
+
+```{r}
+#install.packages('ggplot2')
+library(ggplot2)
+
+names(pf)
+qplot(x = dob_day, data = pf)
+```
+
+## Install other themes
+Run the following code in R to get other themes. 
+```{r}
+#install.packages('ggthemes', dependencies = TRUE)
+library(ggthemes)
+theme_set(theme_minimal(24))
+qplot(x = dob_day, data = pf)
+```
+
+Instead of using the qplot() function, you can also use the ggplot() function to create the histogram:
+```{r}
+ggplot(aes(x = dob_day), data = pf) + 
+  geom_histogram(binwidth = 1) + 
+  scale_x_continuous(breaks = 1:31)
+```
+
+## Breaking into 12 histograms, one for each month of the year : Faceting
+
+Note: The use of the scale_x_discrete() layer as shown in the video is depreciated as of ggplot2 version 2.0. You can use scale_x_continuous() instead, or use ggplot() syntax as shown below.
+
+```{r}
+qplot(x = dob_day, data = pf) +
+   scale_x_continuous(breaks = 1:31) +
+   facet_wrap(~dob_month, ncol = 3)
+```
+
+Equivalent ggplot syntax: 
+```{r}
+ggplot(data = pf, aes(x = dob_day)) + 
+  geom_histogram(binwidth = 1) + 
+  scale_x_continuous(breaks = 1:31) + 
+  facet_wrap(~dob_month)
+```
+
+
+
